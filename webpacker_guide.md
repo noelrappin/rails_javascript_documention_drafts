@@ -1,20 +1,20 @@
 # Webpacker
 
-This guide will show you how to install and use Webpacker to package  JavaScript, CSS, and other assets for the client-side of your Rails application.
+This guide will show you how to install and use Webpacker to package JavaScript, CSS, and other assets for the client-side of your Rails application.
 
 After reading this guide, you will know:
 
 * What Webpacker does and why it is different from Sprockets.
 * How to install Webpacker and integrate it with your framework of choice.
-* How to use Webpacker for JavaScript assets. 
-* How to use Webpacker for CSS assets. 
+* How to use Webpacker for JavaScript assets.
+* How to use Webpacker for CSS assets.
 * How to use Webpacker for static assets.
-* How to deploy a site that uses Webpacker. 
-* How to use Webpacker in alternate Rails contexts, such as engines or Docker containers. 
+* How to deploy a site that uses Webpacker.
+* How to use Webpacker in alternate Rails contexts, such as engines or Docker containers.
 
 ## What Is Webpacker?
 
-Webpacker is a Rails wrapper around the [webpack](https://webpack.js.org) build system that provides a standard webpack configuration and reasonable defaults. 
+Webpacker is a Rails wrapper around the [webpack](https://webpack.js.org) build system that provides a standard webpack configuration and reasonable defaults.
 
 ### What is webpack?
 
@@ -26,9 +26,9 @@ Rails also ships with Sprockets, an asset-packaging tool whose features overlap 
 
 Sprockets, which was designed to be used with Rails, is somewhat simpler to integrate. In particular, code can be added to Sprockets via a Ruby gem. However, webpack is better at integrating with more current JavaScript tools and NPM packages, and allows for a wider range of integration.
 
-You should choose webpacker over Sprockets on a new project, if you want to use NPM packages, and if you want access to the most current JavaScript features and tools. You should choose Sprockets over Webpacker for legacy applications where migration might be costly, if you want to integrate using Gems, or if you have a very small amount of code to package. 
+You should choose webpacker over Sprockets on a new project, if you want to use NPM packages, and if you want access to the most current JavaScript features and tools. You should choose Sprockets over Webpacker for legacy applications where migration might be costly, if you want to integrate using Gems, or if you have a very small amount of code to package.
 
-If you are familiar with Sprockets, the following guide might give you some idea of how to translate. Please note that each tool has a slightly different structure, and the concepts don't directly map onto each other 
+If you are familiar with Sprockets, the following guide might give you some idea of how to translate. Please note that each tool has a slightly different structure, and the concepts don't directly map onto each other
 
 |Task              | Sprockets         | Webpacker         |
 |------------------|-------------------|-------------------|
@@ -42,9 +42,10 @@ If you are familiar with Sprockets, the following guide might give you some idea
 
 In order to use Webpacker you must be using the Yarn package manager, version 1.x or up, and you must have Node.js installed, version 10.13.0 and up.
 
-Webpacker is installed by default in Rails 6.0 and up. In an older version, you can install it when a new project is created by adding `--webpack` to a `rails new` command. In an existing project, webpacker can be added by installing `bundle exec rails webpacker:install`. This installation command creates local files:
+Webpacker is installed by default in Rails 6.0 and up. In an older version, you can install it when a new project is created by adding `--webpack` to a `rails new` command. In an existing project, Webpacker can be added by installing `bundle exec rails webpacker:install`. This installation command creates local files:
 
-* The Webpacker configuration at `config/webpacker.html`
+* The Webpacker configuration at `config/webpacker.yml`
+* Environment-specific webpack configuration files in `config/webpack/`
 * Configuration files for Babel, PostCSS, and Browserslist
 * A place for your front-end source at `app/javascript`
 
@@ -68,9 +69,9 @@ These integrations typically install the set of NPM packages needed to get start
 
 ## Using Webpacker for JavaScript
 
-With Webpacker installed, by default any JavaScript file in the `app/javascripts/packs` directory will get compiled to its own pack file. 
+With Webpacker installed, by default any JavaScript file in the `app/javascripts/packs` directory will get compiled to its own pack file.
 
-So if you have a file called `javascript/packs/application.js`, Webpacker will create a pack called `application`, and you can add it to your Rails application with the code `<%= javascript_pack_tag "application" %>`. With that in place, in development, Rails will re-compile the `application.js` file every time it changes and you you load a page that uses that pack. Typically, the file in the actual `packs` directory will be a manifest that mostly loads other files, but it can also have arbitrary JavaScript code. 
+Given a file called `app/javascript/packs/application.js`, Webpacker will create a pack called `application`. You can render a script tag that references the url for this pack with the code `<%= javascript_pack_tag "application" %>` in a Rails view template, such as the application layout. With that in place, in development, Rails will re-compile the `application.js` file every time it changes and you load a page that uses that pack. Typically, the file in the actual `packs` directory will be a manifest that mostly loads other files, but it can also have arbitrary JavaScript code.
 
 The default pack created for you by Webpacker will link to Rails default JavaScript packages if they have been included in the project:
 
@@ -81,11 +82,11 @@ require("@rails/activestorage").start()
 require("channels")
 ```
 
-You'll need to include a pack that requires these packages to use them in your Rails application. 
+You'll need to include a pack that requires these packages to use them in your Rails application.
 
 ### Where to Place Files
 
-### Linking Files 
+### Linking Files
 
 ### Babel and TypeScript
 
@@ -95,7 +96,7 @@ You'll need to include a pack that requires these packages to use them in your R
 
 ## Webpacker in Rails Engines
 
-## Running Webpacker in Development 
+## Running Webpacker in Development
 
 ## Webpacker in Production
 
@@ -114,4 +115,4 @@ You'll need to include a pack that requires these packages to use them in your R
 * [Webpacker Documentation](https://github.com/rails/webpacker)
 * Noel Rappin
 * Niklas Häusele
-* [The React-Rails Sprockets or Wepbacker Page](https://github.com/reactjs/react-rails/wiki/Choosing-Sprockets-or-Webpacker), edited by Greg Myers, was useful.
+* [The React-Rails Sprockets or Webpacker Page](https://github.com/reactjs/react-rails/wiki/Choosing-Sprockets-or-Webpacker), edited by Greg Myers, was useful.
